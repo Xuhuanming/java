@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport"/>
+    <title>信息上传</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/infoUpload.css">
+</head>
+<body>
+    <div class="bg-panel">
+        <h4 class="content-title">信息上传</h4>
+        <div class="content">
+            <form action="">
+                <div class="info-file">
+                    <div class="beaufile">
+                        <input type="file" name="file"  placeholder="点击选择您要上传的文件" onchange="showVal(this)">
+                    </div>
+                    <span class="file-name">点击上边的框框上传</span>
+                </div>
+                <div class="btn-group">
+                    <button class="btn">上传</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+<script src="../../assets/js/infoUpload.js"></script>
+</html>

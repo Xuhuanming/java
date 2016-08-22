@@ -1,0 +1,31 @@
+/*
+  公用样式和模块样式
+  edit by wangdong
+*/
+@import "variables.less";
+table{
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  border-collapse:collapse
+}
+table>tbody>tr>td{
+  border-bottom: 0;
+}
+table p{
+  margin: 10px 0 10px;
+}
+th,td{
+  border: 1px solid @nice-gray;
+  width: 33.3333333%;
+  padding: 5px;
+}
+th:first-child,td:first-child{
+  border-left: 0;
+}
+th:last-child,td:last-child{
+  border-right: 0;
+}
+button{
+  display: block;
+}

@@ -1,0 +1,230 @@
+package com.everelegance.reuserInfo.util;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.everelegance.reuserInfo.entity.User;
+
+/**
+ * 对文件操作的工具类
+ * 
+ * @author Zhang Jian 2016年7月7日下午4:41:43
+ *
+ */
+public class FileOperate {
+
+	private Map<String, User> users;
+	private List<User> userList;
+	private User user;
+
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月7日 下午3:10:48
+	 * @Description: 读文件，将读取后的文件信息存到map集合中
+	 * @param path
+	 * @return Map<String,User>
+	 * @throws IOException
+	 */
+	public Map<String, User> fileToMap(String path) throws IOException {
+
+		File file = new File(path);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
+		try {
+			// 获取文件的字节流
+			fis = new FileInputStream(file);
+			// 转码
+			isr = new InputStreamReader(fis, "UTF-8");
+			// 在BufferedReader内包装InputStreamReader
+			br = new BufferedReader(isr);
+			String lineText = null;
+			// 用来存储文件中的用户信息
+			users = new HashMap<String, User>();
+			while ((lineText = br.readLine()) != null) {
+				if (lineText == null || "".equals(lineText.trim())) {
+					continue;
+				}
+				user = new User();
+				user = this.stringToUser(lineText);
+				users.put(user.getUsername(), user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			this.ioReadClose(fis, isr, br);
+		}
+		return users;
+	}
+
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月7日 下午5:20:54
+	 * @Description: 读文件，将读取后的文件信息存到list集合中
+	 * @param path
+	 * @return List<User>
+	 * @throws IOException
+	 */
+	public List<User> fileToList(String path) throws IOException {
+
+		File file = new File(path);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
+		try {
+			// 获取文件的字节流
+			fis = new FileInputStream(file);
+			// 转码
+			isr = new InputStreamReader(fis, "UTF-8");
+			// 在BufferedReader内包装InputStreamReader
+			br = new BufferedReader(isr);
+			String lineText = null;
+			// 用来存储文件中的用户信息
+			users = new HashMap<String, User>();
+			while ((lineText = br.readLine()) != null) {
+				if (lineText == null || "".equals(lineText.trim())) {
+					continue;
+				}
+				user = new User();
+				user = this.stringToUser(lineText);
+				userList.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			this.ioReadClose(fis, isr, br);
+		}
+		return userList;
+	}
+
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月7日 下午4:05:25
+	 * @Description: 将文件中读读取出来的信息封装到user对象
+	 * @param message
+	 *            文件中的信息
+	 * @return User
+	 */
+	public User stringToUser(String message) {
+		// 将文件中的一行信息按照|分割，封装到一个user对象中
+		String[] strs = message.split("\\|");
+		user = new User();
+		user.setUsername(strs[0]);
+		user.setEmail(strs[1]);
+		user.setPassword(strs[2]);
+		return user;
+	}
+
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月8日 上午9:23:03
+	 * @Description: 关闭读文件的流
+	 */
+	public void ioReadClose(FileInputStream fis, InputStreamReader isr, BufferedReader br) {
+
+		try {
+			fis.close();
+			isr.close();
+			br.close();
+		} catch (IOException e) {
+			System.out.println("ioReadClose方法调用出错！");
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月11日 上午11:52:13
+	 * @Description: 关闭写文件的流
+
+	 */
+	public void ioWriteClose(FileOutputStream fos, OutputStreamWriter osw, BufferedWriter bw){
+		try {
+			fos.close();
+			osw.close();
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("ioWriteClose方法调用出错！");
+			e.printStackTrace();
+		}
+	}
+	
+
+	/**
+	 * 
+	 * @author Zhang Jian 
+	 * @date 2016年7月8日 上午9:43:47 
+	 * @Description: 拼接用户信息
+	 * @param
+	 *         user 
+	 * @return String 
+	 * @throws
+	 */
+	public String userInfoToString(Map.Entry<String, User> entry) {
+		String username = entry.getValue().getUsername();
+		String email = entry.getValue().getEmail();
+		String password = entry.getValue().getPassword();
+		StringBuilder sb = new StringBuilder();
+		sb.append(username).append("|");
+		sb.append(email).append("|");
+		sb.append(password);
+		return sb.toString();
+	}
+
+	/**
+	 * 
+	 * @author Zhang Jian
+	 * @date 2016年7月8日 上午10:01:51
+	 * @Description: 将用户信息写到文件中，覆盖写
+	 * @param table
+	 * @param file
+	 * @return void
+	 * @throws
+	 */
+	public void writeUserToFile(Map<String, User> table, File file) {
+		BufferedWriter bw = null;
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+		try {
+			fos = new FileOutputStream(file);
+			osw = new OutputStreamWriter(fos, "UTF-8");
+			bw = new BufferedWriter(osw);
+
+			for (Map.Entry<String, User> entry : table.entrySet()) {
+				String info = this.userInfoToString(entry);
+				bw.write(info);
+				bw.write("\r\n");
+			}
+			bw.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			this.ioWriteClose(fos, osw, bw);
+		}
+	}
+}

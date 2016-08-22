@@ -1,0 +1,18 @@
+package com.everelegance.reuserInfo.service;
+
+import com.everelegance.reuserInfo.entity.User;
+
+/**
+ * 
+ * @author Xiao Qiao @2016年7月8日 @上午10:04:09
+ *
+ */
+public interface IFileStorageService {
+
+	public boolean registry(User user, String path);	// 用户注册
+
+	public boolean update(User user, String path);	// 用户更新
+	
+	public User selectOne(int userId, String path, String username);		// 选择一个用户的信息
+
+}

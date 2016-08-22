@@ -1,0 +1,48 @@
+/**
+ * Created by wangdong on 2016/07/08.
+ */
+
+/*失去焦点验证用户名*/
+/*function checkUsername(obj){
+    if (obj.value == "") {
+        obj.parentNode.querySelector("b+span").innerText = "";
+        return false;
+    }else{
+        return true;
+    }
+}*/
+/*获取焦点时，清除提示*/
+function clearNote(obj){
+    obj.parentNode.querySelector("b+span").innerText = "";
+}
+
+
+/*验证邮箱*/
+function checkEmail(obj){
+    if (obj.value != "") {
+        var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,3})+/;
+        flag = pattern.test(obj.value);
+        if (!flag) {
+            obj.parentNode.querySelector("b+span").innerText = "格式不正确";
+            return false;
+        } else {
+            obj.parentNode.querySelector("b+span").innerText = "";
+            return true;
+        }
+    }
+}
+
+/*验证密码*/
+function checkUserpwd(obj){
+    if (obj.value != "") {
+        var pwd_pat = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+        flag = pwd_pat.test(obj.value);
+        if (!flag) {
+            obj.parentNode.querySelector("b+span").innerText = "格式不符合要求";
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+}

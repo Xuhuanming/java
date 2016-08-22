@@ -1,0 +1,29 @@
+/**
+ * Created by wangdong on 2016/7/8.
+ */
+
+
+/*获取原来的信息*/
+var useremailBackVal = document.querySelector("input[name=useremail]").value;
+var userpwdBackVal = document.querySelector("input[name=userpwd]").value;
+var userpwd2BackVal = document.querySelector("input[name=userpwd2]").value;
+console.log(useremailBackVal);
+console.log(userpwdBackVal);
+console.log(userpwd2BackVal);
+
+function confirm(){
+    /*获得当前的信息*/
+    var useremail = document.querySelector("input[name=useremail]");
+    var userpwd = document.querySelector("input[name=userpwd]");
+    var userpwd2 = document.querySelector("input[name=userpwd2]");
+    console.log(useremail);
+    console.log(userpwd);
+    console.log(userpwd2);
+    /*判断前后信息是否改变*/
+    if(useremailBackVal==useremail.value&&userpwdBackVal==userpwd.value&&userpwd2BackVal==userpwd2.value){
+        showModifyMessage("你闹着玩是吧，你什么都没改");
+    }else{
+        /*内容有修改，调用userRegister.js的checkLogin()方法*/
+        checkRegister();
+    }
+}

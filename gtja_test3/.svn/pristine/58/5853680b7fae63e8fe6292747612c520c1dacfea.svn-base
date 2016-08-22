@@ -1,0 +1,22 @@
+/**
+ * Created by wangdong on 2016/7/8.
+ */
+var popBox = document.querySelector(".pop-box");
+var file = document.querySelector("input[name=file]");
+function showVal(obj){
+    console.log(obj.value);
+    var filename = document.querySelector(".file-name");
+    filename.innerText = obj.value;
+}
+
+function uploadComfirm(){
+    if(file.value==""){
+        console.log("----111111-------")
+        showModifyMessage("什么都没选，你传个毛");
+        return false;
+    }else{
+        popBox.style.display="block";
+    }
+}
+
+

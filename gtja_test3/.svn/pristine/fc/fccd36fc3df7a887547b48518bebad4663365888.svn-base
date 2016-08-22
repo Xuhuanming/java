@@ -1,0 +1,44 @@
+package com.everelegance.reuserInfo.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import com.everelegance.reuserInfo.entity.User;
+
+public class Download {
+	
+	private static final String FilePath = null;
+
+	/**
+	 * @author chenyimin
+	 * @date   2016年7月8日
+	 * 
+	 */
+	public boolean DownloadFile(String FilePath,String DownloadPath_parent,String DownloadPath_child){
+		
+		try {
+			//文件的信息读到Map中
+			Map<String, User> user = new FileOperate().fileToMap(FilePath);
+			//先判断文件夹是否存在，不存在则创建
+			File file1 = new File(DownloadPath_parent);
+			if(!file1.exists()){
+				file1.mkdirs();
+			}
+			String fullPath = DownloadPath_parent+DownloadPath_child;
+			//在判断文件是否存在，不存在则创建
+			File file2 = new File(fullPath);
+			if(!file2.exists()){
+				file2.createNewFile();
+			}
+			//调用文件写操作，把用户信息写到本地文件中
+			new FileOperate().writeUserToFile(user, file2);
+			return true;
+			} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+}
+
+

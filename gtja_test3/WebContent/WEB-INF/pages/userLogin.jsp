@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>用户登录</title>
+    <link rel="stylesheet" href="WEB-INF/../assets/css/common.css">
+    <link rel="stylesheet" href="WEB-INF/../assets/css/userLogin.css">
+</head>
+<body>
+    <div class="bg-panel">
+        <!--标题-->
+        <h4 class="content-title">用户登录</h4>
+        <!--输入内容-->
+        <div class="content">
+            <div class="info-input username">
+                <label>用户名:</label>
+                <input type="text" name="username" placeholder="请输入您的用户名" onfocus="clearNote(this)"><b>*</b><span></span>
+            </div>
+            <div class="info-input userpwd">
+                <label>密码:</label>
+                <input type="password" name="userpwd" placeholder="请输入您的密码" onblur="checkUserpwd(this)" onfocus="clearNote(this)"><b>*</b><span></span>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="ViewDispacher?command=register">
+                <button class="btn login">注册</button>
+            </a>
+            <a  href="javascript:void(0)">
+            	<button class="btn register" onclick="checkLogin()">登录</button>
+            </a>
+        </div>
+    </div>
+</body>
+<script src="WEB-INF/../assets/js/common.js"></script>
+<script src="WEB-INF/../assets/js/userLogin.js"></script>
+</html>

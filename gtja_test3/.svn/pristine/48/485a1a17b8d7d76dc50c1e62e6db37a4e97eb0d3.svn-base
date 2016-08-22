@@ -1,0 +1,101 @@
+/**
+ * Created by wangdong on 2016/07/08.
+ */
+
+/*失去焦点验证用户名*/
+/*function checkUsername(obj){
+    if (obj.value == "") {
+        obj.parentNode.querySelector("b+span").innerText = "";
+        return false;
+    }else{
+        return true;
+    }
+}*/
+/*获取焦点时，清除提示*/
+function clearNote(obj){
+    obj.parentNode.querySelector("b+span").innerText = "";
+}
+
+
+/*验证邮箱*/
+function checkEmail(obj){
+    if (obj.value != "") {
+        var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-]{2,3})+/;
+        flag = pattern.test(obj.value);
+        if (!flag) {
+            obj.parentNode.querySelector("b+span").innerText = "格式不正确";
+            return false;
+        } else {
+            obj.parentNode.querySelector("b+span").innerText = "";
+            return true;
+        }
+    }
+}
+
+/*验证密码*/
+function checkUserpwd(obj){
+    if (obj.value != "") {
+        var pwd_pat = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+        flag = pwd_pat.test(obj.value);
+        if (!flag) {
+            obj.parentNode.querySelector("b+span").innerText = "格式不符合要求";
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+}
+
+/*弹出提示框*/
+function showModifyMessage(str){
+    var MsgBgBiv = document.createElement("div");
+    MsgBgBiv.setAttribute("class","msg-bg");
+
+    var MsgPanel = document.createElement("div");
+    MsgPanel.setAttribute("class","msg-panel");
+
+    MsgBgBiv.appendChild(MsgPanel);
+    MsgPanel.innerHTML=str;
+    document.body.appendChild(MsgBgBiv);
+    console.log("-----------1---------------");
+    /*定时器过渡提示框*/
+    setTimeout(function(){
+        MsgPanel.style.opacity=1;
+        console.log("----------2-------");
+    }, 0);
+    /*定时器去除提示框*/
+    setTimeout(function(){
+        document.body.removeChild(MsgBgBiv);
+        console.log("--------3---------");
+    },2000);
+    console.log("-----4----------");
+}
+
+/*确认操作提示框*/
+/*取消动作返回上一级*/
+function boxHide(){
+    popBox.style.display="none";
+}
+
+/*ajax向后台请求*/
+function loadAjax(type,url,funcSucc,funcFail){
+    var xmlhttp;
+    if (window.XMLHttpRequest){
+        xmlhttp=new XMLHttpRequest();
+    }
+    else{
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+        if(xmlhttp.readyState==4){
+            if(xmlhttp.status==200){
+                funcSucc(xmlhttp.responseText);
+            }else{
+                funcFail(xmlhttp.readyState+"||||"+xmlhttp.status);
+            }
+        }
+    }
+    xmlhttp.open(type,url,true);
+    xmlhttp.send();
+}

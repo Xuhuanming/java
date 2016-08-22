@@ -1,0 +1,9 @@
+/**
+ * Created by wangdong on 2016/7/8.
+ */
+
+function showVal(obj){
+    console.log(obj.value);
+    var filename = document.querySelector(".file-name");
+    filename.innerText = obj.value;
+}

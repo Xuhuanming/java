@@ -1,0 +1,81 @@
+package com.everelegance.reuserInfo.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.everelegance.reuserInfo.entity.User;
+import com.everelegance.reuserInfo.service.impl.UserService;
+
+/**
+ * @author chenyimin
+ * 
+ */
+@WebServlet("/UpdateServlet.do")
+public class UpdateServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// 取得服务器根路径和文件名
+		String path = request.getSession().getServletContext().getRealPath("/"+ "userInfo.txt");
+		
+		// 取得需要修改的用户名信息(登录者)
+		User u = (User) request.getSession().getAttribute("user");
+		String oldName = u.getUsername();
+		
+//		// 创建ReadFile对象用以调用其读文件方法
+//		Map<String, User> users = new FileOperate().fileToMap(path);
+//		
+//		for(Map.Entry<String, User> map:users.entrySet()){
+//			String username = map.getKey();
+//			User u1 = new User();
+//			if(username.equals(oldName)){
+//				u1 = map.getValue();
+//				u1.setEmail(request.getParameter("useremail"));
+//				u1.setPassword(request.getParameter("userpwd"));
+//				users.put(username, u1);
+//			}
+//		}
+//		
+//		new FileOperate().writeUserToFile(users,path);
+		User u1 = new User();
+		u1.setUsername(oldName);
+		u1.setEmail(request.getParameter("useremail"));
+		u1.setPassword(request.getParameter("userpwd"));
+		UserService us = new UserService();
+		boolean b = us.update(u1, path);
+		
+		if(b==true){
+			response.sendRedirect("ViewDispacher");
+		}else{
+			response.sendRedirect("UserInfo.do");
+		}
+		
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

@@ -1,0 +1,100 @@
+package com.everelegance.reuserInfo.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import com.everelegance.reuserInfo.dao.impl.UserDaoImpl;
+import com.everelegance.reuserInfo.entity.User;
+import com.everelegance.reuserInfo.service.IFileStorageService;
+import com.everelegance.reuserInfo.util.DbUtil;
+
+public class FileStorageService implements IFileStorageService {
+	
+	private UserDaoImpl userDaoImpl;
+	
+	private Map<String, User> userMap;
+
+	/**
+	 * 用户注册
+	 * 
+	 * @author Xiao Qiao
+	 * @param 	user  用户注册的信息
+	 * @param 	path	 保存在服务器上的用户信息文本文件的路径
+	 * @return 	true 为注册成功；false 为注册失败
+	 */
+	@Override
+	public boolean registry(User user, String path) {
+		userDaoImpl = new UserDaoImpl();
+		
+		userMap = userDaoImpl.selectAllToMap(path);
+		
+		if(this.userMap.get(user.getUsername()) != null)
+			return false;
+		
+		this.userMap.put(user.getUsername(), user);
+		
+		return this.userDaoImpl.add(userMap, user, path); 
+		
+	}
+
+	/**
+	 * 用户更新
+	 * 
+	 * @author Xiao Qiao
+	 * @param user
+	 * @param path
+	 * @return true 为更新成功；false 为更新失败
+	 */
+	@Override
+	public boolean update(User user,String path) {
+		userDaoImpl = new UserDaoImpl();
+		
+		userMap = userDaoImpl.selectAllToMap(path);	
+		
+		if(user != null  && this.userMap.get(user.getUsername())!=null){
+			User u = userMap.get(user.getUsername());
+			
+			// 更新用户 email 和 pwd
+			u.setEmail(user.getEmail());
+			u.setPassword(user.getPassword());
+			
+			userMap.put(u.getUsername(), u);		
+			
+			return userDaoImpl.add(userMap, user, path);
+		}
+		
+		return false;
+
+	}
+	
+	
+	/**
+	 * 根据用户ID查询信息
+	 * 
+	 * @author Xiao Qiao
+	 * @param 	userId	用户ID
+	 * @param 	path	 保存在服务器上的用户信息文本的路径
+	 * @param 	username  用户名
+	 * @return	User	返回一个用户实体
+	 */
+	@Override
+	public User selectOne(int userId, String path, String username) {
+		
+		if(path==null){
+			DbUtil dbUtil =  new DbUtil();
+			
+			String sql = "SELECT username,email, password FROM user WHERE userid =?";
+			String userid = String.valueOf(userId);
+			String params[] = {userid};
+			List<User> userList = dbUtil.query(sql, params);
+			User user = userList.get(0);
+			
+			return user;
+		}
+		return null;
+	}
+	
+
+
+	
+}

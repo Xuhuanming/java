@@ -1,0 +1,60 @@
+package com.everelegance.reuserInfo.util;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Properties;
+
+/**
+ * 将servlet中获取的路径set给此单例中的path变量
+ * @author Zhang Jian
+ * 2016年7月12日上午11:47:28
+ *
+ */
+public class FilePath {
+	//饿汉式
+	private String path = null;
+	// 私有的构造方法
+	private FilePath() {
+		
+	}
+	private static final FilePath filepath = new FilePath();
+	// 静态工厂方法
+	public static FilePath getInstance() {
+		return filepath;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = this.getFilePath();
+	}
+	
+	private String getFilePath(){
+		String filepath = null;
+		InputStream fis = null;
+		Properties prop = new Properties();
+		try {
+			fis = new FileInputStream("filepath.properties");
+			prop.load(fis);
+			Iterator<String> it=prop.stringPropertyNames().iterator();
+			while(it.hasNext()){
+			    String key=it.next();
+			    filepath = prop.getProperty(key);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return filepath;
+	}
+}

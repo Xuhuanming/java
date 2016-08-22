@@ -1,0 +1,23 @@
+package com.everelegance.reuserInfo.service;
+
+import com.everelegance.reuserInfo.entity.User;
+
+/**
+ * 
+ * @author Xiao Qiao 2016年7月7日 下午3:29:41
+ *
+ */
+public interface IUserService {
+
+	/**
+	 * 
+	 * @author Xiao Qiao
+	 * @date 2016年7月8日 下午10:02:37
+	 * @param user	 用户登陆的信息
+	 * @param path	 服务器上保存用户信息的文本路径
+	 * @return boolean	true 为登陆成功，false为登陆失败
+	 */
+	public boolean login(User user, String path);		// 用户登陆
+	
+	
+}

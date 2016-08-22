@@ -1,0 +1,38 @@
+package com.everelegance.reuserInfo.service.impl;
+
+import java.util.Map;
+
+import com.everelegance.reuserInfo.dao.impl.UserDaoImpl;
+import com.everelegance.reuserInfo.entity.User;
+import com.everelegance.reuserInfo.service.IUserService;
+
+/**
+ * 
+ * @author Xiao Qiao 2016年7月7日 下午3:36:33
+ *
+ */
+public class UserService implements IUserService {
+	
+	private UserDaoImpl UserDaoImpl;
+	
+	private Map<String, User> userMap;
+
+	@Override
+	public boolean login(User user,String path) {
+		UserDaoImpl = new UserDaoImpl();
+
+		userMap = UserDaoImpl.selectAllToMap(path);
+		
+		if(userMap.get(user.getUsername()) != null) {
+			
+			User u = userMap.get(user.getUsername());
+			
+			if(user.getPassword().equals(u.getPassword()))
+				return true;
+		}
+		
+		return false;
+		
+	}
+
+}

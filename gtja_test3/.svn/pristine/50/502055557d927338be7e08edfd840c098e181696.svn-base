@@ -1,0 +1,70 @@
+/*
+  公用样式和模块样式
+  edit by wangdong
+*/
+/*定义变量*/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "微软雅黑";
+}
+a,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+/*背景面板*/
+.bg-panel {
+  width: 400px;
+  border-radius: 3px;
+  border: 1px solid #c1c1c1;
+  margin: 100px auto 10px;
+}
+/*内容标题*/
+.content-title {
+  text-align: center;
+  margin: 16px auto 16px;
+}
+/*内容*/
+.content {
+  margin: 10px auto;
+}
+/*输入内容*/
+.info-input {
+  margin: 5px auto 10px;
+  width: 85%;
+}
+.info-input label {
+  width: 70px;
+  font-size: 15px;
+  display: inline-block;
+}
+.info-input input {
+  height: 20px;
+}
+.info-input b {
+  color: #ff2d4e;
+}
+.info-input span {
+  font-size: 12px;
+  width: 84px;
+  color: #ff2d4e;
+  display: inline-block;
+}
+/*按钮*/
+.btn-group {
+  text-align: center;
+  margin: 20px auto 20px;
+}
+.btn {
+  width: 50px;
+  height: 30px;
+  border: 1px solid #c1c1c1;
+  display: inline-block;
+  background-color: #ffffff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}

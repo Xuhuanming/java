@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport"/>
+    <title>用户信息</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/userInfo.css">
+</head>
+<body>
+    <div class="bg-panel">
+        <!--标题-->
+        <h4 class="content-title">用户信息</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>用户信息</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>${username}</p>
+                        <p>${useremail}</p>
+                        <p>${userpwd}</p>
+                    </td>
+                    <td>
+                        <a href="userAlter.html">
+                            <button class="btn infoAlter">修改</button>
+                        </a>
+                        <a href="infoUpload.html">
+                            <button class="btn infoUpload">上传</button>
+                        </a>
+                        <button class="btn infoDownload">下载</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
